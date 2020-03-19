@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Главная - Служба доставки</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="header">
+		<p class="logo">Служба доставки</p>
+	</div>
+	<div class="menu">
+		<p class="title">МЕНЮ</p>
+		<ul>
+			<li><a href="index.html">Главное меню</a></li>
+			<li><a href="about.html">О компании</a></li>
+			<li><a href="#">Тарифы и услуги</a></li>
+			<li><a href="#">География и сроки</a></li>
+			<li><a href="#">Наши партнеры</a></li>
+			<li><a href="contacts.html">Контакты</a></li>
+			<li><a href="#">Отзывы</a></li>
+		</ul>
+		<br>
+		<p><a href="registration.html">Форма регистрации</a></p>
+	</div>
+	<div class="news">
+		<img src="images/reg.jpg" width="250px" alt="registration">
+	</div>		
+	<div class="content">
+		<h1>Регистрация</h1>
+		<p>Для регистрации на сайте укажите следующие данные. Объязательные поля указаны с знаком (<span class="red">*</span>)</p>
+		<p class="green" id="notice"></p>
+		<form onsubmit="return validateForm();" name="frmReg">
+			<div class="form-row">
+				<p class="left">Имя:</p>
+				<p class="right"><input type="text" name="name" id="name"></p>
+			</div>
+			<p class="clearfix"></p>
+			<div class="form-row">
+				<p class="left">Фамилия:</p>
+				<p class="right"><input type="text" name="surname" id="surname"></p>
+			</div>
+			<p class="clearfix"></p>
+			<div class="form-row">
+				<p class="left">E-mail<span class="red">*</span>:</p>
+				<p class="right"><input type="text" name="email" id="email"></p>
+			</div>
+			<p class="clearfix red" id="errorEmail"></p>
+			<div class="form-row">
+				<p class="left">Логин<span class="red">*</span>:</p>
+				<p class="right"><input type="text" name="login" id="login"></p>
+			</div>
+			<p class="clearfix red" id="errorLogin"></p>
+			<div class="form-row">
+				<p class="left">Пароль<span class="red">*</span>:</p>
+				<p class="right"><input type="password" name="password" id="password"></p>
+			</div>
+			<p class="clearfix red" id="errorPassword"></p>
+			<div class="form-row">
+				<p class="left">Подтверждение пароля<span class="red">*</span>:</p>
+				<p class="right"><input type="password" name="password2" id="password2"></p>
+			</div>
+			<p class="clearfix red" id="errorPassword2"></p>
+			<div class="center">
+				<input type="submit" name="submit" value="Регистрация">
+			</div>
+		</form>
+	</div>
+	<div class="footer">
+		<table class="foot">
+			<tr>
+				<td>
+					<p class="title">Наш адрес</p>
+					<p>г.Москва, Россия</p>
+				</td>
+				<td>
+					<p class="title">Наш номер телефона</p>
+					<p>+7 (123) 456 78 90</p>
+				</td>
+				<td>
+					<p>© 2019 служба доставки. Все права и персональные данные защищены.</p>
+				</td>
+			</tr>
+		</table>
+	</div>
+<script type="text/javascript">
+	function validateForm() {
+		var dataName = document.frmReg.name.value;
+		var dataSurname = document.frmReg.surname.value;
+		var dataEmail = document.frmReg.email.value;
+		var dataLogin = document.frmReg.login.value;
+		var dataPassword = document.frmReg.password.value;
+		var dataPassword2 = document.frmReg.password2.value;
+		document.getElementById('errorEmail').innerHTML = "";
+		document.getElementById('errorLogin').innerHTML = "";
+		document.getElementById('errorPassword').innerHTML = "";
+		document.getElementById('errorPassword2').innerHTML = "";
+		var form = true;
+		if (dataEmail == "") {
+			form = false;
+			document.getElementById('errorEmail').innerHTML = "Заполните e-mail";
+		}
+		if (dataLogin == "") {
+			form = false;
+			document.getElementById('errorLogin').innerHTML = "Заполните логин";
+		}
+		if (dataPassword == "") {
+			form = false;
+			document.getElementById('errorPassword').innerHTML = "Заполните пароль";
+		}
+		if (dataPassword2 == "") {
+			form = false;
+			document.getElementById('errorPassword2').innerHTML = "Подтвердите пароль";
+		}
+		dataName=dataName.replace(/^\s*/,"").replace(/\s*$/,"");
+		dataSurname=dataSurname.replace(/^\s*/,"").replace(/\s*$/,"");
+		dataEmail=dataEmail.replace(/^\s*/,"").replace(/\s*$/,"");
+		dataLogin=dataLogin.replace(/^\s*/,"").replace(/\s*$/,"");
+		dataPassword=dataPassword.replace(/^\s*/,"").replace(/\s*$/,"");
+		dataPassword2=dataPassword2.replace(/^\s*/,"").replace(/\s*$/,"");
+		if (dataPassword != dataPassword2) {
+			document.getElementById('errorPassword').innerHTML += "<br>Пароли не совпадают";
+			document.getElementById('errorPassword2').innerHTML += "<br>Пароли не совпадают";
+		}
+		var regexpEmail = /[\w.]*@[\wА-Яа-я]*.[\wА-Яа-я]*/i;
+		if (!regexpEmail.test(dataEmail)) {
+			document.getElementById('errorEmail').innerHTML = "Введите правильный email адрес";
+		}
+		var regexpLogin = /^[\w\d-]*$/;
+		if (!regexpLogin.test(dataLogin)) {
+			document.getElementById('errorLogin').innerHTML = "Содержится недопустимые символы<br>Логин может содержать только латинские буквы, цифры, дефис и символ почеркивание";
+		}
+		var regexpPassword = /^[A-Za-z0-9]{6,}$/;
+		if (!regexpPassword.test(dataPassword)) {
+			document.getElementById('errorPassword').innerHTML = "Содержится недопустимые символы или длина пароля меньше 6 символов<br>Длина пароля должна быть не менее 6 символов, пароль может содержать только латинские буквы и цифры";
+		}
+		if (form) {
+			document.getElementById('notice').innerHTML = "Все правильно. Можно зарегистрироваться.";
+		}
+		return false;
+	}
+</script>
+</body>
+</html>
